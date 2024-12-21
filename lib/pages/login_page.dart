@@ -1,4 +1,4 @@
-import 'package:chat/auth/auth_service.dart';
+import 'package:chat/services/auth/auth_service.dart';
 import 'package:chat/components/my_button.dart';
 import 'package:chat/components/my_textfield.dart';
 import 'package:flutter/material.dart';
@@ -37,9 +37,9 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
+    var theme = Theme.of(context).colorScheme;
     return Scaffold(
-        backgroundColor: theme.colorScheme.background,
+        backgroundColor: theme.background,
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -48,7 +48,7 @@ class LoginPage extends StatelessWidget {
               Icon(
                 Icons.message,
                 size: 60,
-                color: theme.colorScheme.primary,
+                color: theme.primary,
               ),
 
               const SizedBox(height: 50),
@@ -56,7 +56,7 @@ class LoginPage extends StatelessWidget {
               Text(
                 "Welcome back, you've been missed!",
                 style: TextStyle(
-                  color: theme.colorScheme.primary,
+                  color: theme.primary,
                   fontSize: 16,
                 ),
               ),
@@ -92,7 +92,7 @@ class LoginPage extends StatelessWidget {
                 children: [
                   Text("Not a member?",
                       style: TextStyle(
-                        color: theme.colorScheme.primary,
+                        color: theme.primary,
                       )),
                   GestureDetector(
                     // onTap: () =>  Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage())),
@@ -100,7 +100,7 @@ class LoginPage extends StatelessWidget {
                     child: Text(
                       "Register now",
                       style: TextStyle(
-                        color: theme.colorScheme.primary,
+                        color: theme.primary,
                       ),
                     ),
                   ),

@@ -1,4 +1,4 @@
-import 'package:chat/auth/auth_service.dart';
+import 'package:chat/services/auth/auth_service.dart';
 import 'package:chat/pages/settings_page.dart';
 import 'package:flutter/material.dart';
 
@@ -38,7 +38,7 @@ class MyDrawer extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 25.0),
                   child: ListTile(
-                    title: Text('H O M E'),
+                    title: const Text('H O M E'),
                     leading: Icon(Icons.home),
                     onTap: () {
                       //pop the drawer
@@ -50,7 +50,7 @@ class MyDrawer extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 25.0),
                   child: ListTile(
-                    title: Text('S E T T I N G S'),
+                    title: const Text('S E T T I N G S'),
                     leading: Icon(Icons.settings),
                     onTap: () {
                       //pop settings page
@@ -66,7 +66,7 @@ class MyDrawer extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 25.0, bottom: 25),
               child: ListTile(
-                title: Text('L O G O U T'),
+                title: const Text('L O G O U T'),
                 leading: Icon(Icons.logout),
                 onTap: logout
               ),
