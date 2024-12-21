@@ -9,7 +9,7 @@ class ChatPage extends StatefulWidget {
   final String receiverEmail;
   final String receiverID;
 
-  ChatPage({
+  const ChatPage({
     super.key,
     required this.receiverEmail,
     required this.receiverID,
@@ -89,23 +89,24 @@ Future.delayed(
     var theme = Theme.of(context).colorScheme;
 
     return Scaffold(
+      // ignore: deprecated_member_use
       backgroundColor: theme.background,
       appBar: AppBar(
-        title: Center(
-            child: Text(
-          widget.receiverEmail,
-          style: TextStyle(color: theme.secondary),
-        )),
         backgroundColor: theme.primary,
+        title: Center(
+          child: Text(
+            widget.receiverEmail,
+            style: TextStyle(color: theme.secondary),
+        )),
         elevation: 0,
         actions: [
           IconButton(
               icon: Icon(Icons.call, color: theme.onPrimary), onPressed: () {}),
           IconButton(
-              icon: Icon(Icons.video_chat_sharp, color: theme.onPrimary),
+              icon: Icon(Icons.videocam_rounded, color: theme.onPrimary),
               onPressed: () {}),
           IconButton(
-              icon: Icon(Icons.menu, color: theme.onPrimary), onPressed: () {}),
+              icon: Icon(Icons.info, color: theme.onPrimary), onPressed: () {}),
         ],
       ),
       body: Column(children: [
@@ -167,7 +168,7 @@ Future.delayed(
             isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
           // Text(data['message']),
-          ChatBubble(message: data["message"], isCurrentUser: isCurrentUser)
+          ChatBubble(message: data["message"], isCurrentUser: isCurrentUser, messageId: doc.id, userId: data["senderID"],)
         ],
       ),
     );
@@ -187,8 +188,22 @@ Future.delayed(
               shape: BoxShape.circle,
             ), // BoxDecoration
             margin: const EdgeInsets.all(6),
-            child: IconButton(onPressed: () {}, icon: Icon(Icons.add_box)),
-          ), // Conta
+            child: IconButton(
+              onPressed: () {}, 
+              icon: Icon(Icons.add_box)
+              ),
+          ),
+           Container(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle,
+            ), // BoxDecoration
+            margin: const EdgeInsets.all(6),
+            child: IconButton(
+              onPressed: () {}, 
+              icon: Icon(Icons.camera_alt)
+              ),
+          ),
           // IconButton(onPressed: () {}, icon: Icon(Icons.add_box)),
           Container(
             decoration: const BoxDecoration(
@@ -196,8 +211,22 @@ Future.delayed(
               shape: BoxShape.circle,
             ), // BoxDecoration
             // margin: const EdgeInsets.all(6),
-            child: IconButton(onPressed: () {}, icon: Icon(Icons.image)),
-          ), //
+            child: IconButton(
+              onPressed: () {}, 
+              icon: Icon(Icons.image)
+              ),
+          ), 
+           Container(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle,
+            ), // BoxDecoration
+            margin: const EdgeInsets.all(6),
+            child: IconButton(
+              onPressed: () {}, 
+              icon: Icon(Icons.mic)
+              ),
+          ),
           Expanded(
               child: MyTextField(
             controller: _messageController,
@@ -211,7 +240,8 @@ Future.delayed(
               color: Colors.green,
               shape: BoxShape.circle,
             ), // BoxDecoration
-            margin: const EdgeInsets.only(right: 15),
+            margin: const EdgeInsets.only(right: 12),
+            // padding: const EdgeInsets.only(right: 5),
             child: IconButton(
               onPressed: sendMessage,
               icon: const Icon(

@@ -3,6 +3,7 @@ import 'package:chat/components/my_button.dart';
 import 'package:chat/components/my_textfield.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class LoginPage extends StatelessWidget {
   //controllers
   final TextEditingController _emailController = TextEditingController();
@@ -27,6 +28,7 @@ class LoginPage extends StatelessWidget {
 
     //catch error
     catch (e) {
+      // ignore: use_build_context_synchronously
       showDialog(context: context, builder: 
       (context) => AlertDialog(
         title: Text(e.toString()),
@@ -39,6 +41,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var theme = Theme.of(context).colorScheme;
     return Scaffold(
+        // ignore: deprecated_member_use
         backgroundColor: theme.background,
         body: Center(
           child: Column(

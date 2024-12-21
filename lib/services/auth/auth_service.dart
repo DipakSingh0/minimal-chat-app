@@ -52,10 +52,26 @@ class AuthService {
 
       return userCredential;
     } on FirebaseAuthException catch (e) {
-      print('error');
+      // print('error');
       throw Exception(e.code);
     }
   }
+
+  // //save the name of user  -- additional detail
+  // Future<void> saveUserDetails({
+  //   required String uid,
+  //   required String firstName,
+  //   required String lastName,
+  // }) async {
+  //   try {
+  //     await firestore.collection("Users").doc(uid).update({
+  //       'firstName': firstName,
+  //       'lastName': lastName,
+  //     });
+  //   } catch (e) {
+  //     throw Exception('Failed to save user details: $e');
+  //   }
+  // }
 
   // Sign out
   Future<void> signOut() async {

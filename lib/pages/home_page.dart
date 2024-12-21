@@ -6,7 +6,7 @@ import 'package:chat/services/chat/chat_service.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({super.key});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -20,6 +20,7 @@ class _HomePageState extends State<HomePage> {
   //logout
   void logout() {
     //get auth service
+    // ignore: no_leading_underscores_for_local_identifiers
     final _auth = AuthService();
     _auth.signOut();
   }
@@ -28,9 +29,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     var theme = Theme.of(context).colorScheme;
     return Scaffold(
+      // ignore: deprecated_member_use
       backgroundColor: theme.background,
       appBar: AppBar(
-        title: Text("HomePage"),
+        title: Center(child: Text("HomePage")),
         backgroundColor:theme.primary,
         elevation: 0,
         actions: [
@@ -47,8 +49,8 @@ class _HomePageState extends State<HomePage> {
 
   //build a list of users except for thte current logged in user
   Widget _buildUserList() {
-    return StreamBuilder(
-      stream: _chatService.getUsersStream(),
+    return StreamBuilder<List<Map<String, dynamic>>>(
+      stream: _chatService.getUsersStreamExcludingBlocked(),
       builder: (context, snapshot) {
         // error
         if (snapshot.hasError) {

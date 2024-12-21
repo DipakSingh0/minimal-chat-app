@@ -1,10 +1,14 @@
 import 'package:chat/services/auth/auth_service.dart';
 import 'package:chat/components/my_textfield.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../components/my_button.dart';
 
+// ignore: must_be_immutable
 class RegisterPage extends StatelessWidget {
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPwController = TextEditingController();
@@ -14,17 +18,30 @@ class RegisterPage extends StatelessWidget {
   RegisterPage({super.key, required this.onTap});
 
   //register
-  void register(BuildContext context) {
+  void register(BuildContext context) async {
     // get auth service
+    // ignore: no_leading_underscores_for_local_identifiers
     final _auth = AuthService();
+    
 
-    //if password match then create user 
+    //if password match then create user
     if (_passwordController.text == _confirmPwController.text) {
       try {
         _auth.signUpWithEmailPassword(
           _emailController.text,
           _passwordController.text,
         );
+         ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Account created successfully!')),
+        );
+        // Save additional details (name)
+        // await  _auth.saveUserDetails(
+        //   // email: _emailController.text,
+        //   uid: UserCredential.user!.uid,
+        //   firstName: _firstNameController.text,
+        //   lastName: _lastNameController.text, 
+        // );
+
       } catch (e) {
         showDialog(
           context: context,
@@ -37,10 +54,10 @@ class RegisterPage extends StatelessWidget {
     //password dont match show error that user fixes
     else {
       showDialog(
-        context: context,
-        builder: (context) => const AlertDialog(
-          title: Text('Passwords do not match'),
-        ));
+          context: context,
+          builder: (context) => const AlertDialog(
+                title: Text('Passwords do not match'),
+              ));
     }
   }
 
@@ -48,9 +65,11 @@ class RegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var theme = Theme.of(context).colorScheme;
     return Scaffold(
+      // ignore: deprecated_member_use
       backgroundColor: theme.background,
       body: Center(
         child: Column(
+          spacing: 10,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             //logo
@@ -59,8 +78,6 @@ class RegisterPage extends StatelessWidget {
               size: 60,
               color: theme.primary,
             ),
-
-            const SizedBox(height: 50),
             //welcome back message
             Text(
               "Let's create an account for you!",
@@ -69,7 +86,19 @@ class RegisterPage extends StatelessWidget {
                 fontSize: 16,
               ),
             ),
-            const SizedBox(height: 10),
+
+            const SizedBox(height: 40),
+
+            MyTextField(
+              hintText: "First Name",
+              obscureText: false,
+              controller: _firstNameController,
+            ),
+            MyTextField(
+              hintText: "Last Name",
+              obscureText: false,
+              controller: _lastNameController,
+            ),
 
             //email textfield
             MyTextField(
@@ -77,7 +106,6 @@ class RegisterPage extends StatelessWidget {
               obscureText: false,
               controller: _emailController,
             ),
-            const SizedBox(height: 10),
 
             //email textfield
             MyTextField(
@@ -85,19 +113,17 @@ class RegisterPage extends StatelessWidget {
               obscureText: true,
               controller: _passwordController,
             ),
-            const SizedBox(height: 10),
 
             MyTextField(
               hintText: "Confirm Password",
               obscureText: true,
               controller: _confirmPwController,
             ),
-            const SizedBox(height: 15),
+            const SizedBox(height: 5),
 
             //login button
             MyButton(text: 'Register', onTap: () => register(context)),
 
-            const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -116,7 +142,6 @@ class RegisterPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 10),
               ],
             ),
           ],

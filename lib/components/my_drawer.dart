@@ -8,6 +8,7 @@ class MyDrawer extends StatelessWidget {
     //logout
   void logout() {
     //get auth service
+    // ignore: no_leading_underscores_for_local_identifiers
     final _auth = AuthService();
     _auth.signOut();
   }
@@ -16,6 +17,7 @@ class MyDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     var theme = Theme.of(context).colorScheme;
     return Drawer(
+      // ignore: deprecated_member_use
       backgroundColor: theme.background,
       child: Center(
         child: Column(
